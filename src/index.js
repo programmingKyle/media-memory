@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, screen } = require('electron');
 const path = require('path');
+
+let mainWindow;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -7,10 +9,13 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
+  const mainScreen = screen.getPrimaryDisplay();
+  const windowWidth = Math.round(mainScreen.size.width * 0.8); // 80% of screen width
+  const windowHeight = Math.round(mainScreen.size.height * 0.8); // 80% of screen height
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  mainWindow = new BrowserWindow({
+    width: windowWidth,
+    height: windowHeight,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -21,6 +26,16 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  mainWindow.on('move', () => {
+    const { x, y, width, height } = mainWindow.getBounds();
+    const newScreen = screen.getDisplayNearestPoint({ x: x + width / 2, y: y + height / 2 });
+    
+    mainWindow.setSize(
+      Math.round(newScreen.size.width * 0.8),
+      Math.round(newScreen.size.height * 0.8)
+    );
+  });
 };
 
 // This method will be called when Electron has finished
