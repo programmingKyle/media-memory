@@ -1,7 +1,40 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 10px 0px;
+}
+
+.base-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.frame-grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  grid-gap: 0px;
+  -webkit-app-region: drag;
+  background-color: #2B2B2B;
+}
+
+.frame-grid button {
+  -webkit-app-region: no-drag;
+  width: 50px;
+}
+
+.content-grid{
+  display: grid;
+  background-color: rgb(199, 199, 199);
 }
