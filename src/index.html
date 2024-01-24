@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body class="base-grid">
+    <div id="addMediaOverlay" class="overlay" style="display: none;">
+      <div class="centered-container" style="text-align: center;">
+        <div style="display: grid; padding: 0px; margin: 0px;">
+          <button id="addMediaCloseButton" class="slim-button fa-solid fa-x" style="justify-self: end;"></button>
+        </div>
+        <div style="display: grid">
+          <h1>Add Movie</h1>
+        </div>
+        <input id="mediaTitleInput" type="text" placeholder="Input Title" style="text-align: center;">
+    
+        <div id="starRating" class="star-rating" data-rating="0">
+          <span class="fa fa-star" data-index="1"></span>
+          <span class="fa fa-star" data-index="2"></span>
+          <span class="fa fa-star" data-index="3"></span>
+          <span class="fa fa-star" data-index="4"></span>
+          <span class="fa fa-star" data-index="5"></span>
+        </div>
+        <div class="drop-area">
+          <h5>Drop Picture Here</h5>
+        </div>
+    
+        <button class="user-button" id="addMediaButton">Add</button>
+      </div>
+    </div>
+    
+
     <div class="frame-grid">
       <h3 style="margin-left: 10px; color: white; padding: 10px 0px;">Media Memory</h3>
       <button id="minimizeButton" class="fa fa-window-minimize"></button>
@@ -34,7 +60,7 @@
           <a href="#">Alphabetically (Z-A)</a>
         </div>
       </button>
-      <button class="fas fa-plus slim-button"></button>
+      <button id="addContentButton" class="fas fa-plus slim-button"></button>
     </div>
     <div class="content-grid">
       <div class="content-item">
