@@ -19,7 +19,21 @@
       <button class="nav-button">Books</button>
     </div>
     <div class="control-settings">
-      <button class="slim-button">Date Added</button>
+      <input id="searchInput" type="text" style="display: none">
+      <button id="searchButton" class="fas fa-magnifying-glass slim-button"></button>
+      <button class="slim-button">
+        Sort: Date Added
+        <div class="dropdown-content">
+          <a href="#">Date Added (Ascending)</a>
+          <a href="#">Date Added (Descending)</a>
+          <a href="#">Date Released (Ascending)</a>
+          <a href="#">Date Released (Descending)</a>
+          <a href="#">Rating (Ascending)</a>
+          <a href="#">Rating (Descending)</a>
+          <a href="#">Alphabetically (A-Z)</a>
+          <a href="#">Alphabetically (Z-A)</a>
+        </div>
+      </button>
       <button class="fas fa-plus slim-button"></button>
     </div>
     <div class="content-grid">
@@ -50,4 +64,5 @@
     </div>
   </body>
   <script src="frame.js"></script>
+  <script src="userInputs.js"></script>
 </html>
