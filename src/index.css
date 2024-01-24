@@ -4,6 +4,8 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  background-color: #0c0c0c;
+  overflow: hidden;
 }
 
 div {
@@ -13,12 +15,13 @@ div {
 
 h1,h2,h3,h4,h5,h6 {
   margin: 0;
-  padding: 10px 0px;
+  padding: 0px 0px;
 }
 
 .base-grid {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
+  overflow: hidden;
 }
 
 .frame-grid {
@@ -36,5 +39,106 @@ h1,h2,h3,h4,h5,h6 {
 
 .content-grid{
   display: grid;
-  background-color: rgb(199, 199, 199);
+  grid-template-columns: repeat(auto-fill, 200px); /* Fixed width of 75px for each column */
+  grid-gap: 10px;
+  overflow: auto;
+  align-content: start;
+  overflow: auto;
+  padding: 10px;
+}
+
+.content-item {
+  display: grid;
+  grid-template-rows: 1fr auto auto auto;
+  text-align: center;
+  background-color: #1f1f1f;
+  place-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  grid-gap: 5px;
+}
+
+.content-item h3 {
+  color: white;
+}
+
+.content-item h5 {
+  color: white;
+}
+
+.content-item img {
+  width: 150px;
+}
+
+.content-rating {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  place-content: center;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  border-bottom-style: solid;
+  border-color: #0077b6;
+  border-width: 1px;
+}
+
+.nav-button {
+  position: relative;
+  background-color: transparent;
+  border-style: none;
+  padding: 20px;
+  color: #0077b6;
+  font-weight: 800;
+  font-size: 17px;
+  text-align: center;
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background-color: #00b4d8; 
+  margin-left: -5px; 
+}
+
+.nav-button.active {
+  background-color: #0077b6;
+  color: #0c0c0c;
+}
+
+.control-settings {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  background-color: transparent;
+  padding: 0 10px; /* Add padding if needed */
+}
+
+.slim-button {
+  background-color: transparent;
+  border-style: none;
+  padding: 10px; /* Adjust padding as needed */
+  color: #0077b6;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #a73f3f;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
