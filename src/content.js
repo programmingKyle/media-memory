@@ -1,20 +1,20 @@
 const contentDiv_el = document.getElementById('contentDiv');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const media = await getMediaContent();
-    await populateMedia(media);
+    await getMediaContent();
 });
 
 async function getMediaContent() {
     try {
         const results = await api.getMedia({ mediaType: selectedMedia });
-        return results;
+        await populateMedia(results);
       } catch (error) {
         console.error('Error fetching media:', error);
       }
 }
 
 async function populateMedia(media){
+    contentDiv_el.innerHTML = '';
     for (const element of media){
         const contentItemDiv_el = document.createElement('div');
         contentItemDiv_el.classList.add('content-item');

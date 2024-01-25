@@ -132,7 +132,7 @@ ipcMain.handle('add-media', async (req, data) => {
     case 'Movie':
       await saveFileToLocation(data.title, data.filePath, 'movie_images');
       break;
-    case 'TV Show':
+    case 'TV':
       await saveFileToLocation(data.title, data.filePath, 'tv_images');
       break;
     case 'Book':

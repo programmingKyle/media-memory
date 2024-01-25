@@ -13,17 +13,20 @@ function handleNavClick(navElement){
     navElement.classList.add('active');
 }
 
-navMovies_el.addEventListener('click', () => {
+navMovies_el.addEventListener('click', async () => {
     selectedMedia = 'Movie';
     handleNavClick(navMovies_el);
+    await getMediaContent();
 });
 
-navTV_el.addEventListener('click', () => {
-    selectedMedia = 'TV Show';
+navTV_el.addEventListener('click', async () => {
+    selectedMedia = 'TV';
     handleNavClick(navTV_el);
+    await getMediaContent();
 });
 
-navBooks_el.addEventListener('click', () => {
+navBooks_el.addEventListener('click', async () => {
     selectedMedia = 'Book';
     handleNavClick(navBooks_el);
+    await getMediaContent();
 });

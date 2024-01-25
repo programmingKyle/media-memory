@@ -72,12 +72,8 @@ input {
   color: white;
 }
 
-.content-item h5 {
-  color: white;
-}
-
 .content-item img {
-  width: 150px;
+  width: 100%;
 }
 
 .content-rating {
