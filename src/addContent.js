@@ -68,7 +68,21 @@ function handleDrop(e) {
 }
 
 addMediaButton_el.addEventListener('click', async () => {
+  if (mediaTitleInput_el.value === ''){
+    mediaTitleInput_el.classList.add('error');
+    setTimeout(() => {
+      mediaTitleInput_el.classList.remove('error');
+    }, 2000);
+  } else if (pictureFilePath === undefined) {
+    dropArea_el.classList.add('error');
+    setTimeout(() => {
+      dropArea_el.classList.remove('error');
+    }, 2000);
+  } else {
     await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
     addMediaOverlay_el.style.display = 'none';
-    await getMediaContent();
+    pictureFileName_el.textContent = 'Drop Picture Here';
+    pictureFilePath = '';
+    await getMediaContent();  
+  }
 });

@@ -28,6 +28,10 @@ input {
   outline: none;
 }
 
+input.error {
+  box-shadow: inset 0px 0px 5px #ff3939;
+}
+
 .base-grid {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
@@ -202,6 +206,10 @@ input {
   border-radius: 5px;
   padding: 50px 0px;
   margin-bottom: 5px;
+}
+
+.drop-area.error {
+  box-shadow: inset 0px 0px 5px #ff3939;
 }
 
 .drop-area h5 {
