@@ -16,7 +16,6 @@
           <h1 id="mediaTypeHeader">Add Movie</h1>
         </div>
         <input id="mediaTitleInput" type="text" placeholder="Input Title" style="text-align: center;">
-    
         <div id="starRating" class="star-rating" data-rating="0">
           <span class="fa fa-star" data-index="1"></span>
           <span class="fa fa-star" data-index="2"></span>
@@ -24,8 +23,8 @@
           <span class="fa fa-star" data-index="4"></span>
           <span class="fa fa-star" data-index="5"></span>
         </div>
-        <div class="drop-area">
-          <h5>Drop Picture Here</h5>
+        <div id="dropArea" class="drop-area">
+          <h5 id="pictureFileName">Drop Picture Here</h5>
         </div>
     
         <button class="user-button" id="addMediaButton">Add</button>
@@ -66,7 +65,6 @@
       <div class="content-item">
         <img src="./images/movie.png" alt="">
         <h3>Godzilla</h3>
-        <h5>2014</h5>
         <div class="content-rating">
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
@@ -78,7 +76,6 @@
       <div class="content-item">
         <img src="./images/movie.png" alt="">
         <h3>Godzilla</h3>
-        <h5>2014</h5>
         <div class="content-rating">
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
@@ -90,5 +87,7 @@
     </div>
   </body>
   <script src="frame.js"></script>
+  <script src="nav.js"></script>
   <script src="userInputs.js"></script>
+  <script src="addContent.js"></script>
 </html>

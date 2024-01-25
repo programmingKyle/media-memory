@@ -1,8 +1,22 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs-extra');
 
 let mainWindow;
 let isMaximized = false;
+
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('database.db');
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS media (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    rating INT,
+    media TEXT,
+    picturePath TEXT
+  )
+`);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,8 +25,9 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   const mainScreen = screen.getPrimaryDisplay();
-  const windowWidth = Math.round(mainScreen.size.width * 0.8); // 80% of screen width
-  const windowHeight = Math.round(mainScreen.size.height * 0.8); // 80% of screen height
+  const windowWidth = Math.round(mainScreen.size.width * 0.8);
+  const windowHeight = Math.round(mainScreen.size.height * 0.8); 
+  
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: windowWidth,
@@ -22,6 +37,8 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  checkBaseDirectories();
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
@@ -64,6 +81,61 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+function checkBaseDirectories() {
+  const pictureDirectoryList = ['movie_images', 'tv_images', 'book_images'];
+
+  pictureDirectoryList.forEach(element => {
+    const directory = path.join(__dirname, `images/${element}`);
+    fs.ensureDir(directory);
+  });
+}
+
+
+ipcMain.handle('add-media', async (req, data) => {
+  if (!data || !data.media || !data.title || !data.rating || !data.filePath) return;
+  switch (data.media){
+    case 'Movie':
+      await saveFileToLocation(data.title, data.filePath, 'movie_images');
+      break;
+    case 'TV Show':
+      await saveFileToLocation(data.title, data.filePath, 'tv_images');
+      break;
+    case 'Book':
+      await saveFileToLocation(data.title, data.filePath, 'book_images');
+      break;
+  }
+
+  const fileExtension = path.extname(data.filePath);
+  const filename = `${data.title}${fileExtension}`;
+  try {
+    db.run (
+      'INSERT INTO media (title, rating, media, picturePath) VALUES (?, ?, ?, ?)',
+      [data.title, data.rating, data.media, filename]
+    );
+  } catch (error){
+    console.error(error);
+  }
+});
+
+async function saveFileToLocation(title, filePath, subfolder) {
+  const baseDirectory = path.join(__dirname, 'images');
+  const destinationFolder = path.join(baseDirectory, subfolder);
+
+  try {
+    fs.ensureDirSync(destinationFolder);
+
+    const fileExtension = path.extname(filePath);
+    const destinationFilePath = path.join(destinationFolder, title + fileExtension);
+
+    fs.copyFileSync(filePath, destinationFilePath);
+
+    return true;
+  } catch (error) {
+    console.error('Error copying file:', error.message);
+    return false;
+  }
+}
+
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
   switch(data.request){
