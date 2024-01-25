@@ -15,6 +15,7 @@ function toggleSearch(){
 }
 
 addContentButton_el.addEventListener('click', () => {
+    mediaTitleInput_el.value = '';
     addMediaOverlay_el.style.display = 'flex';
     mediaTypeHeader_el.textContent = `Add ${selectedMedia}`;
 });

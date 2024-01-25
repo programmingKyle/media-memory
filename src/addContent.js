@@ -69,4 +69,6 @@ function handleDrop(e) {
 
 addMediaButton_el.addEventListener('click', async () => {
     await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
+    addMediaOverlay_el.style.display = 'none';
+    await getMediaContent();
 });
