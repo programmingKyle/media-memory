@@ -29,10 +29,17 @@ async function populateMedia(media){
         const contentRatingDiv_el = document.createElement('div');
         contentRatingDiv_el.classList.add('content-rating');
 
-        for (let i = 0; i < element.rating; i++){
-            const starIcon = document.createElement('i');
-            starIcon.classList.add('fas', 'fa-star');
-            contentRatingDiv_el.appendChild(starIcon);
+        if (element.rating === 0){
+            const invisibleRating = document.createElement('i');
+            invisibleRating.classList.add('fas', 'fa-star');
+            invisibleRating.style.visibility = 'hidden';
+            contentRatingDiv_el.appendChild(invisibleRating);
+        } else {
+            for (let i = 0; i < element.rating; i++){
+                const starIcon = document.createElement('i');
+                starIcon.classList.add('fas', 'fa-star');
+                contentRatingDiv_el.appendChild(starIcon);
+            }    
         }
 
         contentItemDiv_el.appendChild(contentImage_el);
