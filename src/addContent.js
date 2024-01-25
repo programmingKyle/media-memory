@@ -10,6 +10,9 @@ const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.fa-star');
 const resetStarsButton_el = document.getElementById('resetStarsButton');
 
+const entryExistsOverlay_el = document.getElementById('entryExistsOverlay');
+const entryExistsOKButton_el = document.getElementById('entryExistsOKButton');
+
 let pictureFilePath;
 let selectedRating = 0;
 
@@ -78,7 +81,6 @@ function handleDrop(e) {
 }
 
 addMediaButton_el.addEventListener('click', async () => {
-  console.log(selectedRating);
   if (mediaTitleInput_el.value === ''){
     mediaTitleInput_el.classList.add('error');
     setTimeout(() => {
@@ -90,12 +92,23 @@ addMediaButton_el.addEventListener('click', async () => {
       dropArea_el.classList.remove('error');
     }, 2000);
   } else {
-    await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
-    addMediaOverlay_el.style.display = 'none';
-    pictureFileName_el.textContent = 'Drop Picture Here';
-    pictureFilePath = '';
-    await getMediaContent();  
-    selectedRating = 0;
-    resetStars();
+    const checkExists = await api.checkMediaEntry({title: mediaTitleInput_el.value, media: selectedMedia});
+    if (!checkExists){
+      await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
+      addMediaOverlay_el.style.display = 'none';
+      pictureFileName_el.textContent = 'Drop Picture Here';
+      pictureFilePath = '';
+      await getMediaContent();  
+      selectedRating = 0;
+      resetStars();
+    } else {
+      addMediaOverlay_el.style.display = 'none';
+      entryExistsOverlay_el.style.display = 'flex';
+    }
   }
+});
+
+entryExistsOKButton_el.addEventListener('click', () => {
+  addMediaOverlay_el.style.display = 'flex';
+  entryExistsOverlay_el.style.display = 'none';
 });

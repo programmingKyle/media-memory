@@ -81,6 +81,23 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.handle('check-media-entry', async (req, data) => {
+  if (!data || !data.title || !data.media) return;
+
+  const sql = 'SELECT COUNT(*) as count FROM media WHERE title = ? AND media = ?';
+  return new Promise((resolve, reject) => {
+    db.get(sql, [data.title, data.media], (err, result) => {
+      if (err) {
+        reject(false);
+      } else {
+        // This will return true stating that the entry already exists
+        resolve(result.count > 0);
+      }
+      return result.count;
+    });  
+  })
+});
+
 ipcMain.handle('get-media', async (req, data) => {
   if (!data || !data.mediaType) return;
   let sqlStatement ;
@@ -114,8 +131,6 @@ async function getMedia(sqlStatement){
   });
 }
 
-
-
 function checkBaseDirectories() {
   const pictureDirectoryList = ['movie_images', 'tv_images', 'book_images'];
 
@@ -125,9 +140,7 @@ function checkBaseDirectories() {
   });
 }
 
-
 ipcMain.handle('add-media', async (req, data) => {
-  console.log(data);
   if (!data || !data.media || !data.title || data.rating === undefined || !data.filePath) return;
   switch (data.media) {
     case 'Movie':
