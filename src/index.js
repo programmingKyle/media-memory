@@ -81,6 +81,41 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.handle('get-media', async (req, data) => {
+  if (!data || !data.mediaType) return;
+  let sqlStatement ;
+  let results;
+  switch (data.mediaType){
+    case 'Movie':
+      sqlStatement  = "SELECT * FROM media WHERE media = 'Movie';"
+      results = getMedia(sqlStatement);
+      break;
+    case 'TV':
+      sqlStatement  = "SELECT * FROM media WHERE media = 'TV';"
+      results = getMedia(sqlStatement);
+      break;
+    case 'Book':
+      sqlStatement  = "SELECT * FROM media WHERE media = 'Book';"
+      results = getMedia(sqlStatement);
+      break;
+  }
+  return results;
+});
+
+async function getMedia(sqlStatement){
+  return new Promise((resolve, reject) => {
+    db.all(sqlStatement, [], function(error, rows){
+      if (error){
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    })
+  });
+}
+
+
+
 function checkBaseDirectories() {
   const pictureDirectoryList = ['movie_images', 'tv_images', 'book_images'];
 

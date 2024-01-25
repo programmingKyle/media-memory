@@ -4,4 +4,5 @@ contextBridge.exposeInMainWorld('api', {
     frameHandler: (data) => ipcRenderer.invoke('frame-handler', data),
 
     addMedia: (data) => ipcRenderer.invoke('add-media', data),
+    getMedia: (data) => ipcRenderer.invoke('get-media', data),
 });
