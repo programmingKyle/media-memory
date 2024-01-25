@@ -127,8 +127,9 @@ function checkBaseDirectories() {
 
 
 ipcMain.handle('add-media', async (req, data) => {
-  if (!data || !data.media || !data.title || !data.rating || !data.filePath) return;
-  switch (data.media){
+  console.log(data);
+  if (!data || !data.media || !data.title || data.rating === undefined || !data.filePath) return;
+  switch (data.media) {
     case 'Movie':
       await saveFileToLocation(data.title, data.filePath, 'movie_images');
       break;
@@ -143,11 +144,11 @@ ipcMain.handle('add-media', async (req, data) => {
   const fileExtension = path.extname(data.filePath);
   const filename = `${data.title}${fileExtension}`;
   try {
-    db.run (
+    db.run(
       'INSERT INTO media (title, rating, media, picturePath) VALUES (?, ?, ?, ?)',
       [data.title, data.rating, data.media, filename]
     );
-  } catch (error){
+  } catch (error) {
     console.error(error);
   }
 });

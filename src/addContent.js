@@ -6,6 +6,10 @@ const mediaTypeHeader_el = document.getElementById('mediaTypeHeader');
 const dropArea_el = document.getElementById('dropArea');
 const pictureFileName_el = document.getElementById('pictureFileName');
 
+const starRating = document.getElementById('starRating');
+const stars = starRating.querySelectorAll('.fa-star');
+
+
 let pictureFilePath;
 let selectedRating = 0;
 
@@ -14,39 +18,40 @@ addMediaCloseButton_el.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const starRating = document.getElementById('starRating');
-    const stars = starRating.querySelectorAll('.fa-star');
-  
-    stars.forEach((star, index) => {
-      star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
-      star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
-    });
-  
-    starRating.addEventListener('mouseout', resetStars);
-  
-    function hoverStar(hoveredIndex) {
-      highlightStars(hoveredIndex);
-    }
-  
-    function clickStar(clickedIndex) {
-      selectedRating = clickedIndex;
-      document.getElementById('starRating').setAttribute('data-rating', selectedRating);
-    }
-  
-    function resetStars() {
-      highlightStars(selectedRating);
-    }
-  
-    function highlightStars(index) {
-      stars.forEach((star, i) => {
-        if (i < index) {
-          star.classList.add('active');
-        } else {
-          star.classList.remove('active');
-        }
-      });
-    }
+  starMouseListeners();
 });
+
+function starMouseListeners(){
+  stars.forEach((star, index) => {
+    star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
+    star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
+  });
+
+  starRating.addEventListener('mouseout', resetStars);
+}
+
+function hoverStar(hoveredIndex) {
+  highlightStars(hoveredIndex);
+}
+
+function clickStar(clickedIndex) {
+  selectedRating = clickedIndex;
+  document.getElementById('starRating').setAttribute('data-rating', selectedRating);
+}
+
+function resetStars() {
+  highlightStars(selectedRating);
+}
+
+function highlightStars(index) {
+  stars.forEach((star, i) => {
+    if (i < index) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
 
 dropArea_el.addEventListener('dragover', preventDefaults, false);
 dropArea_el.addEventListener('drop', handleDrop, false);
@@ -68,6 +73,7 @@ function handleDrop(e) {
 }
 
 addMediaButton_el.addEventListener('click', async () => {
+  console.log(selectedRating);
   if (mediaTitleInput_el.value === ''){
     mediaTitleInput_el.classList.add('error');
     setTimeout(() => {
@@ -84,5 +90,7 @@ addMediaButton_el.addEventListener('click', async () => {
     pictureFileName_el.textContent = 'Drop Picture Here';
     pictureFilePath = '';
     await getMediaContent();  
+    selectedRating = 0;
+    resetStars();
   }
 });
