@@ -233,9 +233,13 @@ input.error {
 
 .user-button {
   background-color: #0077b6;
-  padding: 10px 0px;
+  padding: 10px 20px;
   font-weight: 600;
   border-style: none;
+}
+
+.user-button:hover{
+  background-color: #008cd8;
 }
 
 ::-webkit-scrollbar {

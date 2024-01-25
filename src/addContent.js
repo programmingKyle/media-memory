@@ -8,7 +8,7 @@ const pictureFileName_el = document.getElementById('pictureFileName');
 
 const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.fa-star');
-
+const resetStarsButton_el = document.getElementById('resetStarsButton');
 
 let pictureFilePath;
 let selectedRating = 0;
@@ -52,6 +52,11 @@ function highlightStars(index) {
     }
   });
 }
+
+resetStarsButton_el.addEventListener('click', () => {
+  selectedRating = 0;
+  resetStars();
+});
 
 dropArea_el.addEventListener('dragover', preventDefaults, false);
 dropArea_el.addEventListener('drop', handleDrop, false);
