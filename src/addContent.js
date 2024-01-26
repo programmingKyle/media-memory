@@ -18,6 +18,8 @@ let selectedRating = 0;
 
 addMediaCloseButton_el.addEventListener('click', () => {
     addMediaOverlay_el.style.display = 'none';
+    selectedRating = 0;
+    resetStars();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function starMouseListeners(){
   stars.forEach((star, index) => {
-    console.log(star);
     star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
     star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
   });
