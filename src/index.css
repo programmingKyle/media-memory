@@ -19,7 +19,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 input {
-  background-color: #2B2B2B;
+  background-color: #222222;
   border-style: none;
   border-radius: 5px;
   padding: 10px;
@@ -53,6 +53,8 @@ input.error {
 
 .content-grid{
   display: grid;
+  background: rgb(12,12,12);
+  background: linear-gradient(180deg, rgba(12,12,12,1) 0%, rgba(10,10,10,1) 100%);
   grid-template-columns: repeat(auto-fill, 200px); /* Fixed width of 75px for each column */
   grid-gap: 10px;
   overflow: auto;
@@ -190,7 +192,8 @@ input.error {
 
 .centered-container {
   width: 50vw;
-  background: rgb(53, 53, 53);
+  background: rgb(53,53,53);
+  background: linear-gradient(180deg, rgba(53,53,53,1) 0%, rgba(38,38,38,1) 40%, rgba(38,38,38,1) 50%, rgba(38,38,38,1) 60%, rgba(53,53,53,1) 100%);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -244,14 +247,15 @@ input.error {
 }
 
 .user-button {
-  background-color: #0077b6;
+  background: rgb(0,143,219);
+  background: linear-gradient(180deg, rgba(0,143,219,1) 0%, rgba(0,119,182,1) 100%);
   padding: 10px 20px;
   font-weight: 600;
   border-style: none;
 }
 
 .user-button:hover{
-  background-color: #008cd8;
+  filter: brightness(1.2);
 }
 
 .view-media-grid {
