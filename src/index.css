@@ -106,8 +106,9 @@ input.error {
   text-align: center;
 }
 
-.nav-button:hover {
-  text-shadow: 0px 0px 3px #0085cc;
+.nav-button.hover {
+  background: rgb(12,12,12);
+  background: linear-gradient(180deg, rgba(12,12,12,1) 0%, rgba(0,46,70,1) 100%);
 }
 
 .nav-button::before {
@@ -222,18 +223,24 @@ input.error {
 }
 
 .fa-star {
-  color: #ffcc00;
+  color: rgb(210,168,0);
+  color: radial-gradient(circle, rgba(210,168,0,1) 0%, rgba(255,204,0,1) 46%, rgba(255,235,155,1) 100%);
+  margin: 0px 2px;
+  text-shadow: 0px 0px 2px white;
+  font-size: 18px;
 }
 
 .assignStar {
   font-size: 24px;
-  color: #ddd;
+  color: #222222;
   cursor: pointer;
 }
 
 .assignStar:hover,
 .assignStar.active {
-  color: #ffcc00;
+  color: rgb(210,168,0);
+  color: radial-gradient(circle, rgba(210,168,0,1) 0%, rgba(255,204,0,1) 46%, rgba(255,235,155,1) 100%);
+  text-shadow: 0px 0px 2px white;
 }
 
 .user-button {

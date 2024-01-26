@@ -6,11 +6,16 @@ const navElements = [navMovies_el, navTV_el, navBooks_el];
 
 let selectedMedia = 'Movie'; //defaults to Movie
 
+document.addEventListener('DOMContentLoaded', () => {
+    navHoverListeners();
+});
+
 function handleNavClick(navElement){
     navElements.forEach(element => {
         element.classList.remove('active');
     });
     navElement.classList.add('active');
+    navElement.classList.remove('hover');
 }
 
 navMovies_el.addEventListener('click', async () => {
@@ -30,3 +35,16 @@ navBooks_el.addEventListener('click', async () => {
     handleNavClick(navBooks_el);
     await getMediaContent();
 });
+
+async function navHoverListeners(){
+    navElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            if (!element.classList.contains('active')){
+                element.classList.add('hover');
+            }
+        })
+        element.addEventListener('mouseleave', () => {
+            element.classList.remove('hover');
+        });
+    });
+}
