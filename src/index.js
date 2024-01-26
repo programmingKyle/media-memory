@@ -14,7 +14,8 @@ db.run(`
     title TEXT,
     rating INT,
     media TEXT,
-    picturePath TEXT
+    picturePath TEXT,
+    dateAdded DATE
   )
 `);
 
@@ -158,7 +159,7 @@ ipcMain.handle('add-media', async (req, data) => {
   const filename = `${data.title}${fileExtension}`;
   try {
     db.run(
-      'INSERT INTO media (title, rating, media, picturePath) VALUES (?, ?, ?, ?)',
+      'INSERT INTO media (title, rating, media, picturePath, dateAdded) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)',
       [data.title, data.rating, data.media, filename]
     );
   } catch (error) {

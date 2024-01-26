@@ -58,7 +58,7 @@ input.error {
   overflow: auto;
   align-content: start;
   overflow: auto;
-  padding: 10px;
+  padding: 10px 30px;
 }
 
 .content-item {
@@ -128,7 +128,8 @@ input.error {
 
 .control-settings {
   display: flex;
-  background-color: transparent;
+  background: rgb(37,37,37);
+  background: linear-gradient(180deg, rgba(37,37,37,1) 0%, rgba(14,14,14,1) 82%, rgba(12,12,12,1) 100%);
   padding: 10px 10px;
   justify-content: right;
   grid-gap: 5px;
