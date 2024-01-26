@@ -74,12 +74,19 @@ input.error {
   grid-gap: 5px;
 }
 
+.content-item.hover{
+  box-shadow: 0px 0px 10px #0077b6;
+}
+
 .content-item h3 {
   color: #ececec;
 }
 
 .content-item img {
   width: 100%;
+  height: 250px; /* Set a fixed height for all images */
+  object-fit: cover; /* Crop the image to cover the specified dimensions */
+  border-radius: 5px; /* Optional: Add border-radius for rounded corners */
 }
 
 .content-rating {

@@ -55,6 +55,14 @@ function contentItemListener(listen, item, picturePath){
     listen.addEventListener('click', () => {
         populateViewMedia(item, picturePath);
     });
+
+    listen.addEventListener('mouseenter', () => {
+        listen.classList.add('hover');
+    })
+
+    listen.addEventListener('mouseleave', () => {
+        listen.classList.remove('hover');
+    });
 }
 
 function fileLocation(mediaType, fileName){
