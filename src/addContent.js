@@ -8,12 +8,12 @@ const pictureFileName_el = document.getElementById('pictureFileName');
 
 const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.assignStar');
-const resetStarsButton_el = document.getElementById('resetStarsButton');
+const resetButton_el = document.getElementById('resetButton');
 
 const entryExistsOverlay_el = document.getElementById('entryExistsOverlay');
 const entryExistsOKButton_el = document.getElementById('entryExistsOKButton');
 
-let pictureFilePath;
+let pictureFilePath = '';
 let selectedRating = 0;
 
 addMediaCloseButton_el.addEventListener('click', () => {
@@ -58,9 +58,12 @@ function highlightStars(index) {
   });
 }
 
-resetStarsButton_el.addEventListener('click', () => {
+resetButton_el.addEventListener('click', () => {
+  mediaTitleInput_el.value = '';
   selectedRating = 0;
   resetStars();
+  pictureFileName_el.textContent = 'Drop Picture Here';
+  pictureFilePath = '';
 });
 
 dropArea_el.addEventListener('dragover', preventDefaults, false);
@@ -88,7 +91,7 @@ addMediaButton_el.addEventListener('click', async () => {
     setTimeout(() => {
       mediaTitleInput_el.classList.remove('error');
     }, 2000);
-  } else if (pictureFilePath === undefined) {
+  } else if (pictureFilePath === '') {
     dropArea_el.classList.add('error');
     setTimeout(() => {
       dropArea_el.classList.remove('error');

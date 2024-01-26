@@ -73,7 +73,7 @@ input.error {
 }
 
 .content-item h3 {
-  color: white;
+  color: #ececec;
 }
 
 .content-item img {
@@ -258,6 +258,10 @@ input.error {
   display: grid;
   grid-template-rows: auto auto;
   grid-gap: 10px;
+}
+
+.view-media-grid h2 {
+  color: #ececec;
 }
 
 ::-webkit-scrollbar {
