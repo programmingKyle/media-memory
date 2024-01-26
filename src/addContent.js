@@ -7,7 +7,7 @@ const dropArea_el = document.getElementById('dropArea');
 const pictureFileName_el = document.getElementById('pictureFileName');
 
 const starRating = document.getElementById('starRating');
-const stars = starRating.querySelectorAll('.fa-star');
+const stars = starRating.querySelectorAll('.assignStar');
 const resetStarsButton_el = document.getElementById('resetStarsButton');
 
 const entryExistsOverlay_el = document.getElementById('entryExistsOverlay');
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function starMouseListeners(){
   stars.forEach((star, index) => {
+    console.log(star);
     star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
     star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
   });

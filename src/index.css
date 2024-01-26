@@ -222,13 +222,17 @@ input.error {
 }
 
 .fa-star {
+  color: #ffcc00;
+}
+
+.assignStar {
   font-size: 24px;
   color: #ddd;
   cursor: pointer;
 }
 
-.fa-star:hover,
-.fa-star.active {
+.assignStar:hover,
+.assignStar.active {
   color: #ffcc00;
 }
 
