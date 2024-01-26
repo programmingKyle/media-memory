@@ -34,6 +34,31 @@
       </div>
     </div>
 
+    <div id="viewMediaOverlay" class="overlay" style="display: none">
+      <div class="centered-container" style="text-align: center; width: auto;">
+        <div style="display: grid; padding: 0px; margin: 0px;">
+          <button id="viewMediaCloseButton" class="slim-button fa-solid fa-x" style="justify-self: end;"></button>
+        </div>
+        <div class="view-media-grid">
+          <div>
+            <img id="viewMediaPicture" src="images/movie_images/Godzilla.png" alt="" style="height: 60vh">
+          </div>
+          <div>
+            <h2 id="viewMediaTitleText">Godzilla</h2>
+            <div class="star-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+    
+        <button class="user-button" id="editMediaButton">Edit</button>
+      </div>
+    </div>
+
     <div id="entryExistsOverlay" class="overlay" style="display: none;">
       <div class="centered-container" style="text-align: center;">
         <div style="display: grid">
@@ -80,5 +105,6 @@
   <script src="nav.js"></script>
   <script src="userInputs.js"></script>
   <script src="addContent.js"></script>
+  <script src="viewMedia.js"></script>
   <script src="content.js"></script>
 </html>

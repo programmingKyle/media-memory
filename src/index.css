@@ -243,6 +243,12 @@ input.error {
   background-color: #008cd8;
 }
 
+.view-media-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-gap: 10px;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

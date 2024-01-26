@@ -46,7 +46,15 @@ async function populateMedia(media){
         contentItemDiv_el.appendChild(contentHeader_el);
         contentItemDiv_el.appendChild(contentRatingDiv_el);
         contentDiv_el.appendChild(contentItemDiv_el);
+
+        contentItemListener(contentItemDiv_el, element, picturePath);
     }
+}
+
+function contentItemListener(listen, item, picturePath){
+    listen.addEventListener('click', () => {
+        populateViewMedia(item, picturePath);
+    });
 }
 
 function fileLocation(mediaType, fileName){
