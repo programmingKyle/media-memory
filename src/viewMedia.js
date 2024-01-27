@@ -13,7 +13,7 @@ function populateViewMedia(item, picturePath){
     viewMediaRatingDiv_el.innerHTML = '';
     viewMediaOverlay_el.style.display = 'flex';
     viewMediaTitleText_el.textContent = item.title;
-    viewMediaPicture_el.src = picturePath;
+    viewMediaPicture_el.src = picturePath !== '' ? picturePath: 'imageunavailable.png';
 
     if (item.rating === 0){
         const invisibleRating = document.createElement('i');

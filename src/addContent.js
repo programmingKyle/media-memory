@@ -94,7 +94,6 @@ addMediaButton_el.addEventListener('click', async () => {
   } else {
     const checkExists = await api.checkMediaEntry({title: mediaTitleInput_el.value, media: selectedMedia});
     if (!checkExists){
-      console.log(pictureFilePath);
       await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
       addMediaOverlay_el.style.display = 'none';
       pictureFileName_el.textContent = 'Drop Picture Here';

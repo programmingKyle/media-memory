@@ -21,7 +21,8 @@ async function populateMedia(media){
 
         const contentImage_el = document.createElement('img');
         const picturePath = fileLocation(element.media, element.picturePath);
-        contentImage_el.src = element.picturePath !== '' ? picturePath : 'imageunavailable.png';
+        const picture = element.picturePath !== '' ? picturePath : 'imageunavailable.png';
+        contentImage_el.src = picture;
 
         const contentHeader_el = document.createElement('h3');
         contentHeader_el.textContent = element.title;
@@ -47,7 +48,7 @@ async function populateMedia(media){
         contentItemDiv_el.appendChild(contentRatingDiv_el);
         contentDiv_el.appendChild(contentItemDiv_el);
 
-        contentItemListener(contentItemDiv_el, element, picturePath);
+        contentItemListener(contentItemDiv_el, element, picture);
     }
 }
 
