@@ -21,7 +21,7 @@ async function populateMedia(media){
 
         const contentImage_el = document.createElement('img');
         const picturePath = fileLocation(element.media, element.picturePath);
-        contentImage_el.src = picturePath;
+        contentImage_el.src = element.picturePath !== '' ? picturePath : 'imageunavailable.png';
 
         const contentHeader_el = document.createElement('h3');
         contentHeader_el.textContent = element.title;

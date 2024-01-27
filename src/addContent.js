@@ -91,14 +91,10 @@ addMediaButton_el.addEventListener('click', async () => {
     setTimeout(() => {
       mediaTitleInput_el.classList.remove('error');
     }, 2000);
-  } else if (pictureFilePath === '') {
-    dropArea_el.classList.add('error');
-    setTimeout(() => {
-      dropArea_el.classList.remove('error');
-    }, 2000);
   } else {
     const checkExists = await api.checkMediaEntry({title: mediaTitleInput_el.value, media: selectedMedia});
     if (!checkExists){
+      console.log(pictureFilePath);
       await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
       addMediaOverlay_el.style.display = 'none';
       pictureFileName_el.textContent = 'Drop Picture Here';

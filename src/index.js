@@ -144,7 +144,7 @@ function checkBaseDirectories() {
 }
 
 ipcMain.handle('add-media', async (req, data) => {
-  if (!data || !data.media || !data.title || data.rating === undefined || !data.filePath) return;
+  if (!data || !data.media || !data.title || data.rating === undefined) return;
   switch (data.media) {
     case 'Movie':
       await saveFileToLocation(data.title, data.filePath, 'movie_images');
@@ -158,7 +158,7 @@ ipcMain.handle('add-media', async (req, data) => {
   }
 
   const fileExtension = path.extname(data.filePath);
-  const filename = `${data.title}${fileExtension}`;
+  const filename = data.filePath !== '' ? `${data.title}${fileExtension}` : data.filePath;
   try {
     db.run(
       'INSERT INTO media (title, rating, media, picturePath, dateAdded) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)',
