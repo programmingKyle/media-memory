@@ -5,6 +5,7 @@ const addMediaButton_el = document.getElementById('addMediaButton');
 const mediaTypeHeader_el = document.getElementById('mediaTypeHeader');
 const dropArea_el = document.getElementById('dropArea');
 const pictureFileName_el = document.getElementById('pictureFileName');
+const addMediaContent_el = document.getElementById('addMediaContent');
 
 const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.assignStar');
@@ -17,10 +18,19 @@ let pictureFilePath = '';
 let selectedRating = 0;
 
 addMediaCloseButton_el.addEventListener('click', () => {
-    addMediaOverlay_el.style.display = 'none';
-    selectedRating = 0;
-    resetStars();
+  selectedRating = 0;
+  resetStars();
+  addContentAnimation();
 });
+
+function addContentAnimation(){
+  addMediaContent_el.classList.remove('active');
+  const transitionEndHandler = () => {
+    addMediaOverlay_el.style.display = 'none';
+    addMediaContent_el.removeEventListener('transitionend', transitionEndHandler);
+  };
+  addMediaContent_el.addEventListener('transitionend', transitionEndHandler);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   starMouseListeners();
@@ -95,12 +105,13 @@ addMediaButton_el.addEventListener('click', async () => {
     const checkExists = await api.checkMediaEntry({title: mediaTitleInput_el.value, media: selectedMedia});
     if (!checkExists){
       await api.addMedia({media: selectedMedia, title: mediaTitleInput_el.value, rating: selectedRating, filePath: pictureFilePath })
-      addMediaOverlay_el.style.display = 'none';
+      //addMediaOverlay_el.style.display = 'none';
       pictureFileName_el.textContent = 'Drop Picture Here';
       pictureFilePath = '';
       await getMediaContent();  
       selectedRating = 0;
       resetStars();
+      addContentAnimation();
     } else {
       addMediaOverlay_el.style.display = 'none';
       entryExistsOverlay_el.style.display = 'flex';
