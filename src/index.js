@@ -176,6 +176,10 @@ async function saveFileToLocation(title, filePath, subfolder) {
   }
 }
 
+ipcMain.handle('edit-media', (req, data) => {
+  console.log(data);
+});
+
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
   switch(data.request){

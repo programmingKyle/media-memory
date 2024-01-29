@@ -18,42 +18,42 @@ async function populateEditMedia (item, picturePath) {
     clickStar(item.rating);
     hoverStar(item.rating);
     editPictureText_el.textContent = picturePath.split('/').pop();
-    viewMediaOverlay_el.offsetHeight;
+    editMediaOverlay_el.offsetHeight;
     editMediaContent_el.classList.add('active');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    starMouseListeners();
+    editStarMouseListeners();
 });
   
-function starMouseListeners(){
+function editStarMouseListeners(){
     editStars.forEach((star, index) => {
-        star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
-        star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
+        star.addEventListener('mouseover', () => editHoverStar(index + 1)); // index + 1 to make it 1-based
+        star.addEventListener('click', () => editClickStar(index + 1)); // index + 1 to make it 1-based
     });
 
-    editStarRating_el.addEventListener('mouseout', resetStars);
+    editStarRating_el.addEventListener('mouseout', editResetStars);
 }
   
-function hoverStar(hoveredIndex) {
-    highlightStars(hoveredIndex);
+function editHoverStar(hoveredIndex) {
+    editHighlightStars(hoveredIndex);
 }
 
-function clickStar(clickedIndex) {
+function editClickStar(clickedIndex) {
     editSelectRating = clickedIndex;
     document.getElementById('editStarRating').setAttribute('data-rating', editSelectRating);
 }
 
-function resetStars() {
-    highlightStars(editSelectRating);
+function editResetStars() {
+    editHighlightStars(editSelectRating);
 }
 
-function highlightStars(index) {
+function editHighlightStars(index) {
     editStars.forEach((star, i) => {
         if (i < index) {
-        star.classList.add('active');
+            star.classList.add('active');
         } else {
-        star.classList.remove('active');
+            star.classList.remove('active');
         }
     });
 }
@@ -71,15 +71,15 @@ async function closeEditOverlay(){
     editMediaContent_el.addEventListener('transitionend', transitionEndHandler);
 }
 
-editDropArea_el.addEventListener('dragover', preventDefaults, false);
-editDropArea_el.addEventListener('drop', handleDrop, false);
+editDropArea_el.addEventListener('dragover', editPreventDefaults, false);
+editDropArea_el.addEventListener('drop', editHandleDrop, false);
 
-function preventDefaults(e) {
+function editPreventDefaults(e) {
     e.preventDefault();
     e.stopPropagation();
 }
   
-function handleDrop(e) {
+function editHandleDrop(e) {
     preventDefaults(e); // Prevent default behavior for the drop event
 
     const files = e.dataTransfer.files;

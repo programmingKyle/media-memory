@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function starMouseListeners(){
   stars.forEach((star, index) => {
-    star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
+    star.addEventListener('mouseover', () => {
+      hoverStar(index + 1);
+    });
+    //star.addEventListener('mouseover', () => hoverStar(index + 1)); // index + 1 to make it 1-based
     star.addEventListener('click', () => clickStar(index + 1)); // index + 1 to make it 1-based
   });
 
