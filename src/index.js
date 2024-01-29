@@ -27,8 +27,8 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   const mainScreen = screen.getPrimaryDisplay();
   const windowWidth = Math.round(mainScreen.size.width * 0.8);
-  const windowHeight = Math.round(mainScreen.size.height * 0.8); 
-  
+  const windowHeight = Math.round(mainScreen.size.height * 0.8);
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     minHeight: 550,
@@ -45,20 +45,8 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
-
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
-
-  mainWindow.on('move', () => {
-    const { x, y, width, height } = mainWindow.getBounds();
-    const newScreen = screen.getDisplayNearestPoint({ x: x + width / 2, y: y + height / 2 });
-    
-    mainWindow.setSize(
-      Math.round(newScreen.size.width * 0.8),
-      Math.round(newScreen.size.height * 0.8)
-    );
-  });
 };
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

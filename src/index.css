@@ -214,7 +214,7 @@ input.error {
 }
 
 .centered-container {
-  width: 50vw;
+  width: 60vw;
   background: rgb(53, 53, 53);
   background: linear-gradient(180deg, rgba(53, 53, 53, 1) 0%, rgba(38, 38, 38, 1) 40%, rgba(38, 38, 38, 1) 50%, rgba(38, 38, 38, 1) 60%, rgba(53, 53, 53, 1) 100%);
   padding: 20px;
