@@ -153,9 +153,23 @@ input.error {
   padding: 10px;
   color: #0077b6;
   position: relative;
+  width: 50px;
 }
 
 .slim-button:hover{
+  background-color: #0077b6;
+  color: black;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border-style: none;
+  padding: 10px;
+  color: #0077b6;
+  position: relative;
+}
+
+.dropdown-button:hover{
   background-color: #0077b6;
   color: black;
 }
@@ -171,7 +185,7 @@ input.error {
   right: 0px; /* Align the left edge of the dropdown with the button */
 }
 
-.slim-button:hover .dropdown-content {
+.dropdown-button:hover .dropdown-content {
   display: block;
 }
 
@@ -201,19 +215,21 @@ input.error {
 
 .centered-container {
   width: 50vw;
-  background: rgb(53,53,53);
-  background: linear-gradient(180deg, rgba(53,53,53,1) 0%, rgba(38,38,38,1) 40%, rgba(38,38,38,1) 50%, rgba(38,38,38,1) 60%, rgba(53,53,53,1) 100%);
+  background: rgb(53, 53, 53);
+  background: linear-gradient(180deg, rgba(53, 53, 53, 1) 0%, rgba(38, 38, 38, 1) 40%, rgba(38, 38, 38, 1) 50%, rgba(38, 38, 38, 1) 60%, rgba(53, 53, 53, 1) 100%);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   display: grid;
+  transform: scale(0.8);
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out; /* Combine transitions */
 }
 
 .centered-container.active {
   opacity: 1;
+  transform: scale(1);
 }
 
 .centered-container h1 {
@@ -288,6 +304,16 @@ input.error {
 
 .view-media-grid h2 {
   color: #ececec;
+}
+
+.search-input {
+  width: 0;
+  overflow: hidden; /* Ensure content doesn't overflow during transition */
+  transition: width 0.4s ease-in-out;
+}
+
+.search-input.active {
+  width: 200px; /* Adjust this value based on your desired expanded width */
 }
 
 ::-webkit-scrollbar {
