@@ -237,6 +237,20 @@ input.error {
   margin-bottom: 5px;
 }
 
+.drop-area-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 5px;
+}
+
+.drop-area-grid img {
+  border-radius: 5px;
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
 .drop-area {
   background-color: #181818;
   border-radius: 5px;

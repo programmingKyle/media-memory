@@ -7,6 +7,7 @@ const dropArea_el = document.getElementById('dropArea');
 const pictureFileName_el = document.getElementById('pictureFileName');
 const addMediaContent_el = document.getElementById('addMediaContent');
 const entryExistsContent_el = document.getElementById('entryExistsContent');
+const previewImage_el = document.getElementById('previewImage');
 
 const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.assignStar');
@@ -19,15 +20,18 @@ let pictureFilePath = '';
 let selectedRating = 0;
 
 addMediaCloseButton_el.addEventListener('click', () => {
-  selectedRating = 0;
-  resetStars();
   addContentAnimation();
 });
 
 function addContentAnimation(){
   addMediaContent_el.classList.remove('active');
   const transitionEndHandler = () => {
+    selectedRating = 0;
+    resetStars();  
     addMediaOverlay_el.style.display = 'none';
+    pictureFileName_el.textContent = 'Drop Picture Here';
+    pictureFilePath = '';
+    previewImage_el.src = 'imageunavailable.png';  
     addMediaContent_el.removeEventListener('transitionend', transitionEndHandler);
   };
   addMediaContent_el.addEventListener('transitionend', transitionEndHandler);
@@ -96,6 +100,8 @@ function handleDrop(e) {
   if (files.length > 0) {
     pictureFilePath = files[0].path || files[0].name;
     pictureFileName_el.textContent = pictureFilePath.split('\\').pop();
+
+    previewImage_el.src = files[0].path;
   }
 }
 
@@ -112,6 +118,7 @@ addMediaButton_el.addEventListener('click', async () => {
       //addMediaOverlay_el.style.display = 'none';
       pictureFileName_el.textContent = 'Drop Picture Here';
       pictureFilePath = '';
+      previewImage_el.src = 'imageunavailable.png';
       await getMediaContent();  
       selectedRating = 0;
       resetStars();
