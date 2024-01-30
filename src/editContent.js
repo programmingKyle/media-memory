@@ -12,11 +12,15 @@ const editStars = editStarRating_el.querySelectorAll('.assignStar');
 let editSelectRating = 0;
 let editPicturePath = '';
 
+let currentEditEntry;
+
 async function populateEditMedia (item, picturePath) {
+    currentEditEntry = item;
+    editPicturePath = picturePath;
     editMediaOverlay_el.style.display = 'flex';
     editMediaTitleInput_el.value = item.title;
-    clickStar(item.rating);
-    hoverStar(item.rating);
+    editClickStar(item.rating);
+    editHoverStar(item.rating);
     editPictureText_el.textContent = picturePath.split('/').pop();
     editMediaOverlay_el.offsetHeight;
     editMediaContent_el.classList.add('active');
@@ -89,3 +93,7 @@ function editHandleDrop(e) {
         editPictureText_el.textContent = editPicturePath.split('\\').pop();
     }
 }
+
+updateMediaButton_el.addEventListener('click', async () => {
+    await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media})
+});

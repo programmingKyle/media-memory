@@ -176,8 +176,32 @@ async function saveFileToLocation(title, filePath, subfolder) {
   }
 }
 
-ipcMain.handle('edit-media', (req, data) => {
-  console.log(data);
+ipcMain.handle('edit-media', async (req, data) => {
+  const filePath = path.isAbsolute(data.image) ? data.image : path.join(__dirname, data.image);
+
+  switch (data.media) {
+    case 'Movie':
+      await saveFileToLocation(data.title, filePath, 'movie_images');
+      break;
+    case 'TV':
+      await saveFileToLocation(data.title, filePath, 'tv_images');
+      break;
+    case 'Book':
+      await saveFileToLocation(data.title, filePath, 'book_images');
+      break;
+  }
+
+  const fileExtension = path.extname(filePath);
+  const filename = filePath !== '' ? `${data.title}${fileExtension}` : filePath;
+
+  try {
+    db.run(
+      'UPDATE media SET title = ?, rating = ?, picturePath = ? WHERE id = ?',
+      [data.title, data.rating, filename, data.currentEditEntry.id]
+    );
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 ipcMain.handle('frame-handler', (req, data) => {
