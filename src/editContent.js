@@ -6,6 +6,11 @@ const editDropArea_el = document.getElementById('editDropArea');
 const editPictureText_el = document.getElementById('editPictureText');
 const updateMediaButton_el = document.getElementById('updateMediaButton');
 
+
+const editEntryExistsOverlay_el = document.getElementById('editEntryExistsOverlay');
+const editEntryExistsContent_el = document.getElementById('editEntryExistsContent');
+const editEntryExistsOKButton_el = document.getElementById('editEntryExistsOKButton');
+
 const editStarRating_el = document.getElementById('editStarRating');
 const editStars = editStarRating_el.querySelectorAll('.assignStar');
 
@@ -95,5 +100,25 @@ function editHandleDrop(e) {
 }
 
 updateMediaButton_el.addEventListener('click', async () => {
-    await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media})
+    const checkExists = await api.checkMediaEntry({title: editMediaTitleInput_el.value, media: selectedMedia});
+    if (!checkExists){
+        await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media})
+    } else {
+        editMediaOverlay_el.style.display = 'none';
+        editEntryExistsOverlay_el.style.display = 'flex';
+        editEntryExistsOverlay_el.offsetHeight;
+        editEntryExistsContent_el.classList.add('active');
+    }
 });
+
+
+editEntryExistsOKButton_el.addEventListener('click', () => {
+    editEntryExistsContent_el.classList.remove('active');
+    const transitionEndHandler = () => {
+        editMediaOverlay_el.style.display = 'flex';
+        editEntryExistsOverlay_el.style.display = 'none';
+        editEntryExistsContent_el.removeEventListener('transitionend', transitionEndHandler);
+    };
+    editEntryExistsContent_el.addEventListener('transitionend', transitionEndHandler);
+  });
+  

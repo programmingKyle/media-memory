@@ -6,6 +6,7 @@ const mediaTypeHeader_el = document.getElementById('mediaTypeHeader');
 const dropArea_el = document.getElementById('dropArea');
 const pictureFileName_el = document.getElementById('pictureFileName');
 const addMediaContent_el = document.getElementById('addMediaContent');
+const entryExistsContent_el = document.getElementById('entryExistsContent');
 
 const starRating = document.getElementById('starRating');
 const stars = starRating.querySelectorAll('.assignStar');
@@ -118,11 +119,20 @@ addMediaButton_el.addEventListener('click', async () => {
     } else {
       addMediaOverlay_el.style.display = 'none';
       entryExistsOverlay_el.style.display = 'flex';
+      entryExistsOverlay_el.offsetHeight;
+
+      entryExistsContent_el.classList.add('active');
     }
   }
 });
 
 entryExistsOKButton_el.addEventListener('click', () => {
-  addMediaOverlay_el.style.display = 'flex';
-  entryExistsOverlay_el.style.display = 'none';
+  entryExistsContent_el.classList.remove('active');
+  const transitionEndHandler = () => {
+    addMediaOverlay_el.style.display = 'flex';
+    entryExistsOverlay_el.style.display = 'none';
+    entryExistsContent_el.removeEventListener('transitionend', transitionEndHandler);
+  };
+  entryExistsContent_el.addEventListener('transitionend', transitionEndHandler);
 });
+
