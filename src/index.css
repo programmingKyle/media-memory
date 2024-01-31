@@ -86,9 +86,10 @@ input.error {
 
 .content-item img {
   width: 100%;
-  height: 250px; /* Set a fixed height for all images */
-  object-fit: cover; /* Crop the image to cover the specified dimensions */
-  border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+  height: 250px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px black;
 }
 
 .content-rating {
@@ -252,10 +253,12 @@ input.error {
 }
 
 .drop-area {
-  background-color: #181818;
+  background-color: #1d1d1d;
   border-radius: 5px;
   padding: 50px 0px;
   margin-bottom: 5px;
+  place-content: center;
+  display: grid;
 }
 
 .drop-area.error {
@@ -318,6 +321,7 @@ input.error {
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
+  box-shadow: 5px 5px 10px black;
 }
 
 .view-media-grid h2 {
