@@ -132,5 +132,4 @@ editEntryExistsOKButton_el.addEventListener('click', () => {
         editEntryExistsContent_el.removeEventListener('transitionend', transitionEndHandler);
     };
     editEntryExistsContent_el.addEventListener('transitionend', transitionEndHandler);
-  });
-  
+});

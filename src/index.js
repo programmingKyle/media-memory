@@ -72,6 +72,30 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.handle('delete-media', (req, data) => {
+  if (!data || !data.id || !data.picture) return;
+
+  if (data.picture !== null){
+    const filePath = path.join(__dirname, data.picture);
+    try {
+      fs.unlink(filePath);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const sql = 'DELETE FROM media WHERE id = ?';
+  return new Promise((resolve, reject) => {
+    db.run(sql, [data.id], (err) => {
+      if (err) {
+        reject(false);
+      } else {
+        resolve(true);
+      }
+    });  
+  })
+});
+
 ipcMain.handle('check-media-entry', async (req, data) => {
   if (!data || !data.title || !data.media) return;
 

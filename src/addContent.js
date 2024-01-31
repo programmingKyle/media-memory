@@ -82,6 +82,7 @@ resetButton_el.addEventListener('click', () => {
   resetStars();
   pictureFileName_el.textContent = 'Drop Picture Here';
   pictureFilePath = '';
+  previewImage_el.src = 'imageunavailable.png';
 });
 
 dropArea_el.addEventListener('dragover', preventDefaults, false);

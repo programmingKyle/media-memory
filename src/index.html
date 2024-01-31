@@ -59,7 +59,8 @@
           </div>
           <img id="editPreviewImage">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr; grid-gap: 5px;">
+        <div style="display: grid; grid-template-columns: auto 1fr; grid-gap: 5px;">
+          <button id="deleteMediaButton" class="fas fa-trash user-button"></button>
           <button id="updateMediaButton" class="user-button" >Update</button>
         </div>
       </div>
@@ -82,6 +83,18 @@
           </div>
         </div>
         <button class="user-button" id="editMediaButton">Edit</button>
+      </div>
+    </div>
+
+    <div id="deleteOverlay" class="overlay" style="display: none;">
+      <div id="deleteOverlayContent" class="centered-container" style="text-align: center;">
+        <div style="display: grid">
+          <h1>Are you sure you want to delete?</h1>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px">
+          <button class="user-button" id="confirmDeleteButton">Yes</button>
+          <button class="user-button" id="cancelDeleteButton">No</button>  
+        </div>
       </div>
     </div>
 
@@ -144,4 +157,5 @@
   <script src="editContent.js"></script>
   <script src="viewMedia.js"></script>
   <script src="content.js"></script>
+  <script src="removeContent.js"></script>
 </html>
