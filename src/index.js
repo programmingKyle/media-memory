@@ -183,7 +183,9 @@ async function saveFileToLocation(title, filePath, subfolder, oldImage) {
   const baseDirectory = path.join(__dirname, 'images');
   const destinationFolder = path.join(baseDirectory, subfolder);
 
-  if (oldImage !== ''){
+  const pictureName = filePath.split('\\').pop();
+
+  if (oldImage !== undefined && pictureName !== oldImage){
     const oldImagePath = path.join(destinationFolder, oldImage);
     await fs.unlink(oldImagePath);  
   }
