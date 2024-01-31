@@ -82,7 +82,11 @@ input.error {
 
 .content-item h3 {
   color: #ececec;
+  overflow: hidden;
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  text-overflow: ellipsis; /* Show ellipsis for overflowed text */
 }
+
 
 .content-item img {
   width: 100%;
@@ -314,6 +318,7 @@ input.error {
   display: grid;
   grid-template-rows: auto auto;
   grid-gap: 10px;
+  place-items: center;
 }
 
 .view-media-grid img {
@@ -325,8 +330,12 @@ input.error {
 }
 
 .view-media-grid h2 {
+  width: 250px;
   color: #ececec;
+  white-space: normal;
+  word-wrap: break-word;
 }
+
 
 .search-input {
   width: 0;
