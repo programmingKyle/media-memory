@@ -322,8 +322,8 @@ input.error {
 }
 
 .view-media-grid img {
-  height: 100%;
-  width: 100%;
+  height: 60vh;
+  width: 325px;
   object-fit: cover;
   border-radius: 5px;
   box-shadow: 5px 5px 10px black;
