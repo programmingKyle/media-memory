@@ -19,7 +19,7 @@ function populateViewMedia(item, picturePath){
     currentPicture = picturePath;
     viewMediaRatingDiv_el.innerHTML = '';
     viewMediaOverlay_el.style.display = 'flex';
-    viewMediaTitleText_el.textContent = item.title;
+    viewMediaTitleText_el.textContent = item.title.split('-')[0];
     viewMediaPicture_el.src = picturePath !== '' ? picturePath: 'imageunavailable.png';
     viewMediaOverlay_el.offsetHeight;
     viewMediaContent_el.classList.add('active');

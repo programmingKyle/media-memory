@@ -25,7 +25,7 @@ async function populateMedia(media){
         contentImage_el.src = picture;
 
         const contentHeader_el = document.createElement('h3');
-        contentHeader_el.textContent = element.title;
+        contentHeader_el.textContent = element.title.split('-')[0];
 
         const contentRatingDiv_el = document.createElement('div');
         contentRatingDiv_el.classList.add('content-rating');

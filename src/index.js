@@ -151,33 +151,42 @@ function checkBaseDirectories() {
 
 ipcMain.handle('add-media', async (req, data) => {
   if (!data || !data.media || !data.title || data.rating === undefined) return;
+
+  const titleWithDateTime = `${data.title}-${new Date().toISOString().replace(/:/g, '-')}`;
+  
   switch (data.media) {
     case 'Movie':
-      await saveFileToLocation(data.title, data.filePath, 'movie_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'movie_images');
       break;
     case 'TV':
-      await saveFileToLocation(data.title, data.filePath, 'tv_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'tv_images');
       break;
     case 'Book':
-      await saveFileToLocation(data.title, data.filePath, 'book_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'book_images');
       break;
   }
 
   const fileExtension = path.extname(data.filePath);
-  const filename = data.filePath !== '' ? `${data.title}${fileExtension}` : data.filePath;
+  const filename = data.filePath !== '' ? `${titleWithDateTime}${fileExtension}` : data.filePath;
+
   try {
     db.run(
       'INSERT INTO media (title, rating, media, picturePath, dateAdded) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)',
-      [data.title, data.rating, data.media, filename]
+      [titleWithDateTime, data.rating, data.media, filename]
     );
   } catch (error) {
     console.error(error);
   }
 });
 
-async function saveFileToLocation(title, filePath, subfolder) {
+async function saveFileToLocation(title, filePath, subfolder, oldImage) {
   const baseDirectory = path.join(__dirname, 'images');
   const destinationFolder = path.join(baseDirectory, subfolder);
+
+  if (oldImage !== ''){
+    const oldImagePath = path.join(destinationFolder, oldImage);
+    await fs.unlink(oldImagePath);  
+  }
 
   try {
     fs.ensureDirSync(destinationFolder);
@@ -195,32 +204,37 @@ async function saveFileToLocation(title, filePath, subfolder) {
 }
 
 ipcMain.handle('edit-media', async (req, data) => {
+  if (!data || !data.media || !data.title || data.rating === undefined) return;
+
   const filePath = path.isAbsolute(data.image) ? data.image : path.join(__dirname, data.image);
+
+  const titleWithDateTime = `${data.title}-${new Date().toISOString().replace(/:/g, '-')}`;
 
   switch (data.media) {
     case 'Movie':
-      await saveFileToLocation(data.title, filePath, 'movie_images');
+      await saveFileToLocation(titleWithDateTime, filePath, 'movie_images', data.currentEditEntry.picturePath);
       break;
     case 'TV':
-      await saveFileToLocation(data.title, filePath, 'tv_images');
+      await saveFileToLocation(titleWithDateTime, filePath, 'tv_images', data.currentEditEntry.picturePath);
       break;
     case 'Book':
-      await saveFileToLocation(data.title, filePath, 'book_images');
+      await saveFileToLocation(titleWithDateTime, filePath, 'book_images', data.currentEditEntry.picturePath);
       break;
   }
 
   const fileExtension = path.extname(filePath);
-  const filename = filePath !== '' ? `${data.title}${fileExtension}` : filePath;
+  const filename = filePath !== '' ? `${titleWithDateTime}${fileExtension}` : filePath;
 
   try {
     db.run(
       'UPDATE media SET title = ?, rating = ?, picturePath = ? WHERE id = ?',
-      [data.title, data.rating, filename, data.currentEditEntry.id]
+      [titleWithDateTime, data.rating, filename, data.currentEditEntry.id]
     );
   } catch (error) {
     console.error(error);
   }
 });
+
 
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
