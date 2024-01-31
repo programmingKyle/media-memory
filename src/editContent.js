@@ -103,15 +103,23 @@ function editHandleDrop(e) {
 }
 
 updateMediaButton_el.addEventListener('click', async () => {
-    const checkExists = await api.checkEditTitle({id: currentEditEntry.id, title: editMediaTitleInput_el.value, media: selectedMedia});
-    console.log(checkExists);
-    if (!checkExists){
-        await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media})
+    if (editMediaTitleInput_el.value === ''){
+        editMediaTitleInput_el.classList.add('error');
+        setTimeout(() => {
+            editMediaTitleInput_el.classList.remove('error');
+        }, 2000);
     } else {
-        editMediaOverlay_el.style.display = 'none';
-        editEntryExistsOverlay_el.style.display = 'flex';
-        editEntryExistsOverlay_el.offsetHeight;
-        editEntryExistsContent_el.classList.add('active');
+        const checkExists = await api.checkEditTitle({id: currentEditEntry.id, title: editMediaTitleInput_el.value, media: selectedMedia});
+        if (!checkExists){
+            await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media});
+            await closeEditOverlay();
+            await getMediaContent();
+        } else {
+            editMediaOverlay_el.style.display = 'none';
+            editEntryExistsOverlay_el.style.display = 'flex';
+            editEntryExistsOverlay_el.offsetHeight;
+            editEntryExistsContent_el.classList.add('active');
+        }    
     }
 });
 
