@@ -89,6 +89,24 @@ ipcMain.handle('check-media-entry', async (req, data) => {
   })
 });
 
+ipcMain.handle('check-edit-title', (req, data) => {
+  if (!data || !data.id || !data.title || !data.media) return;
+
+  const sql = 'SELECT COUNT(*) as count FROM media WHERE title = ? AND media = ? AND id <> ?';
+  
+  return new Promise((resolve, reject) => {
+    db.get(sql, [data.title, data.media, data.id], (err, result) => {
+      if (err) {
+        reject(false);
+      } else {
+        // Resolve with true if the entry already exists
+        resolve(result.count > 0);
+      }
+    });
+  });
+});
+
+
 ipcMain.handle('get-media', async (req, data) => {
   if (!data || !data.mediaType) return;
   let sqlStatement ;

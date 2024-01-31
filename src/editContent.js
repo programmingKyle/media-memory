@@ -103,7 +103,8 @@ function editHandleDrop(e) {
 }
 
 updateMediaButton_el.addEventListener('click', async () => {
-    const checkExists = await api.checkMediaEntry({title: editMediaTitleInput_el.value, media: selectedMedia});
+    const checkExists = await api.checkEditTitle({id: currentEditEntry.id, title: editMediaTitleInput_el.value, media: selectedMedia});
+    console.log(checkExists);
     if (!checkExists){
         await api.editMedia({currentEditEntry, title: editMediaTitleInput_el.value, rating: editSelectRating, image: editPicturePath, media: currentEditEntry.media})
     } else {
