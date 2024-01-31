@@ -179,13 +179,13 @@ ipcMain.handle('add-media', async (req, data) => {
   const titleWithDateTime = `${data.title}-${new Date().toISOString().replace(/:/g, '-')}`;
   switch (data.media) {
     case 'Movie':
-      await saveFileToLocation(data.title, data.filePath, 'movie_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'movie_images');
       break;
     case 'TV':
-      await saveFileToLocation(data.title, data.filePath, 'tv_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'tv_images');
       break;
     case 'Book':
-      await saveFileToLocation(data.title, data.filePath, 'book_images');
+      await saveFileToLocation(titleWithDateTime, data.filePath, 'book_images');
       break;
   }
 
@@ -255,7 +255,7 @@ ipcMain.handle('edit-media', async (req, data) => {
   try {
     db.run(
       'UPDATE media SET title = ?, rating = ?, picturePath = ? WHERE id = ?',
-      [titleWithDateTime, data.rating, filename, data.currentEditEntry.id]
+      [data.title, data.rating, filename, data.currentEditEntry.id]
     );
   } catch (error) {
     console.error(error);
