@@ -75,7 +75,7 @@ app.on('activate', () => {
 ipcMain.handle('delete-media', (req, data) => {
   if (!data || !data.id || !data.picture) return;
 
-  if (data.picture !== null){
+  if (data.picture !== null && data.picture !== 'imageunavailable.png'){
     const filePath = path.join(__dirname, data.picture);
     try {
       fs.unlink(filePath);
@@ -209,23 +209,25 @@ async function saveFileToLocation(title, filePath, subfolder, oldImage) {
 
   const pictureName = filePath.split('\\').pop();
 
-  if (oldImage !== undefined && pictureName !== oldImage){
+  if (oldImage !== undefined && oldImage !== '' && pictureName !== oldImage){
     const oldImagePath = path.join(destinationFolder, oldImage);
     await fs.unlink(oldImagePath);  
   }
 
-  try {
-    fs.ensureDirSync(destinationFolder);
-
-    const fileExtension = path.extname(filePath);
-    const destinationFilePath = path.join(destinationFolder, title + fileExtension);
-
-    fs.copyFileSync(filePath, destinationFilePath);
-
-    return true;
-  } catch (error) {
-    console.error('Error copying file:', error.message);
-    return false;
+  if (filePath !== ''){
+    try {
+      fs.ensureDirSync(destinationFolder);
+  
+      const fileExtension = path.extname(filePath);
+      const destinationFilePath = path.join(destinationFolder, title + fileExtension);
+  
+      fs.copyFileSync(filePath, destinationFilePath);
+  
+      return true;
+    } catch (error) {
+      console.error('Error copying file:', error.message);
+      return false;
+    }  
   }
 }
 
