@@ -24,7 +24,7 @@ async function populateEditMedia (item, picturePath) {
     editPicturePath = picturePath;
     editPreviewImage_el.src = editPicturePath;
     editMediaOverlay_el.style.display = 'flex';
-    editMediaTitleInput_el.value = item.title.split('-')[0];
+    editMediaTitleInput_el.value = item.tite;
     editClickStar(item.rating);
     editHoverStar(item.rating);
     editPictureText_el.textContent = picturePath.split('/').pop();

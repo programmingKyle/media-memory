@@ -177,16 +177,15 @@ ipcMain.handle('add-media', async (req, data) => {
   if (!data || !data.media || !data.title || data.rating === undefined) return;
 
   const titleWithDateTime = `${data.title}-${new Date().toISOString().replace(/:/g, '-')}`;
-  
   switch (data.media) {
     case 'Movie':
-      await saveFileToLocation(titleWithDateTime, data.filePath, 'movie_images');
+      await saveFileToLocation(data.title, data.filePath, 'movie_images');
       break;
     case 'TV':
-      await saveFileToLocation(titleWithDateTime, data.filePath, 'tv_images');
+      await saveFileToLocation(data.title, data.filePath, 'tv_images');
       break;
     case 'Book':
-      await saveFileToLocation(titleWithDateTime, data.filePath, 'book_images');
+      await saveFileToLocation(data.title, data.filePath, 'book_images');
       break;
   }
 
@@ -196,7 +195,7 @@ ipcMain.handle('add-media', async (req, data) => {
   try {
     db.run(
       'INSERT INTO media (title, rating, media, picturePath, dateAdded) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)',
-      [titleWithDateTime, data.rating, data.media, filename]
+      [data.title, data.rating, data.media, filename]
     );
   } catch (error) {
     console.error(error);
