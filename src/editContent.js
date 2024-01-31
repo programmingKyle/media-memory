@@ -5,7 +5,7 @@ const editMediaTitleInput_el = document.getElementById('editMediaTitleInput');
 const editDropArea_el = document.getElementById('editDropArea');
 const editPictureText_el = document.getElementById('editPictureText');
 const updateMediaButton_el = document.getElementById('updateMediaButton');
-
+const editPreviewImage_el = document.getElementById('editPreviewImage');
 
 const editEntryExistsOverlay_el = document.getElementById('editEntryExistsOverlay');
 const editEntryExistsContent_el = document.getElementById('editEntryExistsContent');
@@ -22,6 +22,7 @@ let currentEditEntry;
 async function populateEditMedia (item, picturePath) {
     currentEditEntry = item;
     editPicturePath = picturePath;
+    editPreviewImage_el.src = editPicturePath;
     editMediaOverlay_el.style.display = 'flex';
     editMediaTitleInput_el.value = item.title;
     editClickStar(item.rating);
@@ -96,6 +97,8 @@ function editHandleDrop(e) {
     if (files.length > 0) {
         editPicturePath = files[0].path || files[0].name;
         editPictureText_el.textContent = editPicturePath.split('\\').pop();
+
+        editPreviewImage_el.src = editPicturePath;
     }
 }
 

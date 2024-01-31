@@ -245,10 +245,10 @@ input.error {
 
 .drop-area-grid img {
   border-radius: 5px;
-  height: 250px;
   object-fit: cover;
   width: 100%;
   margin-bottom: 5px;
+  height: 50vh;
 }
 
 .drop-area {
