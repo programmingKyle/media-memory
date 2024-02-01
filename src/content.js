@@ -1,5 +1,7 @@
 const contentDiv_el = document.getElementById('contentDiv');
 
+const listOfMediaEntries = [];
+
 document.addEventListener('DOMContentLoaded', async () => {
     await getMediaContent();
 });
@@ -14,6 +16,7 @@ async function getMediaContent() {
 }
 
 async function populateMedia(media){
+    listOfMediaEntries.length = 0;
     contentDiv_el.innerHTML = '';
     for (const element of media){
         const contentItemDiv_el = document.createElement('div');
@@ -47,6 +50,8 @@ async function populateMedia(media){
         contentItemDiv_el.appendChild(contentHeader_el);
         contentItemDiv_el.appendChild(contentRatingDiv_el);
         contentDiv_el.appendChild(contentItemDiv_el);
+
+        listOfMediaEntries.push(element);
 
         contentItemListener(contentItemDiv_el, element, picture);
     }

@@ -6,7 +6,7 @@ searchButton_el.addEventListener('click', () => {
     toggleSearch();
 });
 
-function toggleSearch(){
+async function toggleSearch(){
     if (searchInput_el.style.display === 'none'){
         searchButton_el.classList.remove('fa-magnifying-glass');
         searchInput_el.style.display = 'grid';
@@ -17,6 +17,8 @@ function toggleSearch(){
         searchInput_el.classList.remove('active');
         searchButton_el.classList.remove('fa-x');
         searchButton_el.classList.add('fa-magnifying-glass');
+        searchInput_el.value = '';
+        await getMediaContent();
         const transitionEndHandler = () => {
             searchInput_el.style.display = 'none';
             searchInput_el.removeEventListener('transitionend', transitionEndHandler);
@@ -33,4 +35,15 @@ addContentButton_el.addEventListener('click', () => {
     addMediaContent_el.classList.add('active');
 });
 
+searchInput_el.addEventListener('input', async () => {
+    if (searchInput_el.value !== ''){
+        const searchText = searchInput_el.value.trim().toLowerCase();
+        const filteredMediaEntries = listOfMediaEntries.filter(entry =>
+            entry.title.toLowerCase().includes(searchText)
+        );
+        await populateMedia(filteredMediaEntries);    
+    } else {
+        await getMediaContent();
+    }
+});
 
