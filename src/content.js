@@ -14,6 +14,7 @@ let sortingMethod = 'ascendAlpha'; // 'default', 'ascendAlpha', 'descendAlpha',
 
 const selectSorting = (sorting) => {
     sortingMethod = sorting;
+    getMediaContent();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -21,6 +22,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 const sortingMethods = {
+    "ascendDate": (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded),
+    "descendDate": (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
+    "ascendRating": (a, b) => a.rating - b.rating,
+    "descendRating": (a, b) => b.rating - a.rating,
     "ascendAlpha": (a, b) => a.title.localeCompare(b.title),
     "descendAlpha": (a, b) => b.title.localeCompare(a.title)
 }
@@ -29,7 +34,6 @@ async function getMediaContent() {
     try {
         const results = await api.getMedia({ mediaType: selectedMedia });
         results.sort(sortingMethods[sortingMethod]);
-        console.log(results);
         await populateMedia(results);
       } catch (error) {
         console.error('Error fetching media:', error);
