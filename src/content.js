@@ -2,13 +2,34 @@ const contentDiv_el = document.getElementById('contentDiv');
 
 const listOfMediaEntries = [];
 
+const ascendDateAdded_el = document.getElementById('ascendDateAdded').addEventListener('click', () => selectSorting('ascendDate'));
+const descendDateAdded_el = document.getElementById('descendDateAdded').addEventListener('click', () => selectSorting('descendDate'));
+const ascendRating_el = document.getElementById('ascendRating').addEventListener('click', () => selectSorting('ascendRating'));
+const descendRating_el = document.getElementById('descendRating').addEventListener('click', () => selectSorting('descendRating'));
+const ascendAlpha_el = document.getElementById('ascendAlpha').addEventListener('click', () => selectSorting('ascendAlpha'));
+const descendAlpha_el = document.getElementById('descendAlpha').addEventListener('click', () => selectSorting('descendAlpha'));
+
+let sortingMethod = 'ascendAlpha'; // 'default', 'ascendAlpha', 'descendAlpha',
+// 'ascendDateAdded', 'descendDateAdded', 'ascendRating', descendRating'
+
+const selectSorting = (sorting) => {
+    sortingMethod = sorting;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     await getMediaContent();
 });
 
+const sortingMethods = {
+    "ascendAlpha": (a, b) => a.title.localeCompare(b.title),
+    "descendAlpha": (a, b) => b.title.localeCompare(a.title)
+}
+
 async function getMediaContent() {
     try {
         const results = await api.getMedia({ mediaType: selectedMedia });
+        results.sort(sortingMethods[sortingMethod]);
+        console.log(results);
         await populateMedia(results);
       } catch (error) {
         console.error('Error fetching media:', error);
@@ -18,6 +39,7 @@ async function getMediaContent() {
 async function populateMedia(media){
     listOfMediaEntries.length = 0;
     contentDiv_el.innerHTML = '';
+
     for (const element of media){
         const contentItemDiv_el = document.createElement('div');
         contentItemDiv_el.classList.add('content-item');
