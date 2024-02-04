@@ -2,18 +2,19 @@ const contentDiv_el = document.getElementById('contentDiv');
 
 const listOfMediaEntries = [];
 
-const ascendDateAdded_el = document.getElementById('ascendDateAdded').addEventListener('click', () => selectSorting('ascendDate'));
-const descendDateAdded_el = document.getElementById('descendDateAdded').addEventListener('click', () => selectSorting('descendDate'));
-const ascendRating_el = document.getElementById('ascendRating').addEventListener('click', () => selectSorting('ascendRating'));
-const descendRating_el = document.getElementById('descendRating').addEventListener('click', () => selectSorting('descendRating'));
-const ascendAlpha_el = document.getElementById('ascendAlpha').addEventListener('click', () => selectSorting('ascendAlpha'));
-const descendAlpha_el = document.getElementById('descendAlpha').addEventListener('click', () => selectSorting('descendAlpha'));
+const ascendDateAdded_el = document.getElementById('ascendDateAdded').addEventListener('click', () => selectSorting('Date Added Ascending'));
+const descendDateAdded_el = document.getElementById('descendDateAdded').addEventListener('click', () => selectSorting('Date Added Descending'));
+const ascendRating_el = document.getElementById('ascendRating').addEventListener('click', () => selectSorting('Rating Ascending'));
+const descendRating_el = document.getElementById('descendRating').addEventListener('click', () => selectSorting('Rating Descending'));
+const ascendAlpha_el = document.getElementById('ascendAlpha').addEventListener('click', () => selectSorting('Alphabetical Ascending'));
+const descendAlpha_el = document.getElementById('descendAlpha').addEventListener('click', () => selectSorting('Alphabetical Descending'));
+const sortValueText_el = document.getElementById('sortValueText');
 
-let sortingMethod = 'ascendAlpha'; // 'default', 'ascendAlpha', 'descendAlpha',
-// 'ascendDateAdded', 'descendDateAdded', 'ascendRating', descendRating'
+let sortingMethod = 'Alphabetical Ascending';
 
-const selectSorting = (sorting) => {
+function selectSorting(sorting){
     sortingMethod = sorting;
+    sortValueText_el.textContent = `Sort: ${sortingMethod}`;
     getMediaContent();
 }
 
@@ -22,12 +23,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 const sortingMethods = {
-    "ascendDate": (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded),
-    "descendDate": (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
-    "ascendRating": (a, b) => a.rating - b.rating,
-    "descendRating": (a, b) => b.rating - a.rating,
-    "ascendAlpha": (a, b) => a.title.localeCompare(b.title),
-    "descendAlpha": (a, b) => b.title.localeCompare(a.title)
+    "Date Added Ascending": (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded),
+    "Date Added Descending": (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
+    "Rating Ascending": (a, b) => a.rating - b.rating,
+    "Rating Descending": (a, b) => b.rating - a.rating,
+    "Alphabetical Ascending": (a, b) => a.title.localeCompare(b.title),
+    "Alphabetical Descending": (a, b) => b.title.localeCompare(a.title)
 }
 
 async function getMediaContent() {
